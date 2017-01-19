@@ -1,5 +1,8 @@
 var path = require('path');
 var webpack = require('webpack');
+var ReactStylePlugin = require('react-style-webpack-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 
 module.exports = {
   devtool: 'eval',
@@ -15,7 +18,8 @@ module.exports = {
     publicPath: '/static/'
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new ExtractTextPlugin('bundle.css')
   ],
   resolve: {
     extensions: ['', '.js', '.jsx']
@@ -25,6 +29,9 @@ module.exports = {
       test: /\.jsx?$/,
       loaders: ['babel'],
       include: path.join(__dirname, 'src')
+    }, {
+      test: /\.css$/,
+      loader:  'style!css?modules&localIdentName=[name]__[local]___[hash:base64:5]!less' 
     }]
   }
 };

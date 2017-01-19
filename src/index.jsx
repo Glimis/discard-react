@@ -1,21 +1,21 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import AppState from './AppState';
+import BaseInfo from './model/BaseInfo';
 import App from './App';
-import PlanePerson from './components/PlanePerson'
-import PlaneBase from './components/PlaneBase'
-import PlaneHistory from './components/PlaneHistory'
-import PlaneProgress from './components/PlaneProgress'
-const appState = new AppState();
+
+import PanelBase from './components/Panel/PanelBase'
+import PanelProgress from './components/Panel/PanelProgress'
+// import PanelPerson from './components/PanelPerson'
+// import PanelHistory from './components/PanelHistory'
+const baseInfo = new BaseInfo();
+
 
 render(
   <AppContainer>
     <div>
-      <PlanePerson  />
-      <PlaneBase />
-      <PlaneHistory />
-      <PlaneProgress />
+      <PanelBase baseInfo={baseInfo} />
+      <PanelProgress />
     </div>
   </AppContainer>,
   document.getElementById('root')
@@ -27,7 +27,7 @@ if (module.hot) {
 
     render(
       <AppContainer>
-        <NextApp appState={appState} />
+        <NextApp baseInfo={baseInfo} />
       </AppContainer>,
       document.getElementById('root')
     );
