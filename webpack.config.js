@@ -22,7 +22,10 @@ module.exports = {
     new ExtractTextPlugin('bundle.css')
   ],
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx'],
+    alias: {
+          Common: path.join(__dirname, 'src/common')
+      }
   },
   module: {
     loaders: [{

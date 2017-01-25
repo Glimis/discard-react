@@ -15,21 +15,21 @@ render(
   <AppContainer>
     <div>
       <PanelBase baseInfo={baseInfo} />
-      <PanelProgress />
+      
     </div>
   </AppContainer>,
   document.getElementById('root')
 );
 
-if (module.hot) {
-  module.hot.accept('./App', () => {
-    const NextApp = require('./App').default;
+// if (module.hot) {
+//   module.hot.accept('./App', () => {
+//     const NextApp = require('./App').default;
 
-    render(
-      <AppContainer>
-        <NextApp baseInfo={baseInfo} />
-      </AppContainer>,
-      document.getElementById('root')
-    );
-  });
-}
+//     render(
+//       <AppContainer>
+//         <NextApp baseInfo={baseInfo} />
+//       </AppContainer>,
+//       document.getElementById('root')
+//     );
+//   });
+// }

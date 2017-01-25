@@ -35,7 +35,12 @@ class BaseComponent extends Component{
           </div>)
   }
   click(){
-    debugger
-    this.props.baseInfo.load();
+    var self=this;
+    self.props.baseInfo.load()
+    // setTimeout(function(){
+    //   self.props.baseInfo.name=Math.random()
+    // },1000)
+    // this.props.baseInfo.name="asd"
+    // this.props.baseInfo.load();
   }
 }
