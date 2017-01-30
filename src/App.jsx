@@ -1,23 +1,32 @@
 import React, { Component } from 'react';
-import { observer } from 'mobx-react';
-import DevTools from 'mobx-react-devtools';
+import { render } from 'react-dom';
+import { Navbar,Nav,NavItem ,NavDropdown ,MenuItem  } from 'react-bootstrap';
+import { Router, Route, Link, browserHistory } from 'react-router'
 
-@observer
+
 class App extends Component {
   render() {
     return (
       <div>
-        <button onClick={this.onReset}>
-          Seconds11 passed: {this.props.appState.timer}
-        </button>
-        <DevTools />
+          <Navbar inverse collapseOnSelect>
+              <Navbar.Header>
+                <Navbar.Brand>
+                  <a href="#">JSCL-清洗部</a>
+                </Navbar.Brand>
+                <Navbar.Toggle />
+              </Navbar.Header>
+              <Navbar.Collapse>
+                <Nav>
+                  <NavItem eventKey={1} ><Link to={`/hotel/list`}>宾馆</Link></NavItem>
+                  <NavItem eventKey={2} ><Link to={`/order/list`}>订单</Link></NavItem>
+                </Nav>
+              </Navbar.Collapse>
+          </Navbar>
+           {this.props.children}
       </div>
     );
-  }
-
-  onReset = () => {
-    this.props.appState.resetTimer();
   }
 };
 
 export default App;
+    
