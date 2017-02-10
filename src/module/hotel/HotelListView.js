@@ -1,24 +1,17 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-// import {Button } from 'Common'
 import {Table ,Button,Form,Col  } from 'react-bootstrap';
-import Store from './store';
 import {  Link } from 'react-router'
+import Hotels from 'Store/Hotel'
+
+
 
 @observer
 export default class OrderForm extends Component{
   constructor(props){
-    const list = new Store();
-    list.load({
-      cb:{
-        limit:999
-      }
-    });
     super(props);
-    this.state ={
-      store:list
-    };
-    window.state=this.state;
+    var hotels=this.hotels=new Hotels();
+    hotels.load();
   }  
   render(){
     var self=this;
@@ -36,7 +29,7 @@ export default class OrderForm extends Component{
               </thead>
               <tbody>
                 {
-                  this.state.store.list.map(function (obj,index) {
+                  this.hotels.getList().map(function (obj,index) {
                     return (
                             <tr>
                               <td>{index+1}</td>

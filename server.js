@@ -2,7 +2,9 @@ var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
 var config = require('./webpack.config');
 
-var localhost="192.168.1.153"
+// var localhost="192.168.1.153"
+// var localhost="192.168.1.112"
+var localhost="localhost"
 new WebpackDevServer(webpack(config), {
   publicPath: config.output.publicPath,
   hot: true,

@@ -17,8 +17,8 @@ class App extends Component {
               </Navbar.Header>
               <Navbar.Collapse>
                 <Nav>
-                  <NavItem eventKey={1} ><Link to={`/hotel/list`}>宾馆</Link></NavItem>
-                  <NavItem eventKey={2} ><Link to={`/order/list`}>订单</Link></NavItem>
+                  <li><Link to={`/hotel/list`}>宾馆</Link></li>
+                  <li><Link to={`/order/list`}>订单</Link></li>
                 </Nav>
               </Navbar.Collapse>
           </Navbar>

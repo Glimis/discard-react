@@ -51,6 +51,7 @@ export default function defaultRouter(name){
     })
     .post('/',async function(req, res, next) {
         var body=req.body||{};
+        console.log(req.body,req.query,req.params)
         var data;
         try{
           if(body._id){

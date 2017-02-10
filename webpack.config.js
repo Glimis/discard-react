@@ -13,7 +13,7 @@ module.exports = {
     './src/index'
   ],
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(__dirname, 'static'),
     filename: 'bundle.js',
     publicPath: '/static/'
   },
@@ -24,7 +24,9 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', '.jsx'],
     alias: {
-          Common: path.join(__dirname, 'src/common')
+          Common: path.join(__dirname, 'src/common'),
+          Model:path.join(__dirname, 'src/model'),
+          Store:path.join(__dirname, 'src/store')
       }
   },
   module: {

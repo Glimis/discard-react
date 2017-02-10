@@ -144,8 +144,7 @@ class BaseComponent extends Component{
 Model代表数据源,负责获取,维护,适配数据,其数据来源包括但不限于xhr,localStorage,sessionStorage甚至内存中自定义,一般为Ajax的封装,可以通过Builder工程进行自动维护    
 VM为组件关心的属性,与Model有交集,大部分id系列并不需要VM,大部分组件状态(如checked),并不一定会在Model中描述    
 简单来说,只有Model可与后台沟通(Ajax),VM与Model通过函数or属性交换的方式进行沟通    
-本项目属于传统ERP项目,此处允许VM继承Model,用以获取save/load的方法进行快速开发,再次强调,此处高度耦合,需要额外的代码处理还原,新旧数据比较等需求,遇见不适情况,自觉分割    
-
+本项目属于传统ERP项目,此处允许VM继承Model,用以获取save/load的方法进行快速开发,再次强调,此处高度耦合,需要额外的代码处理还原,新旧数据比较,个性新增等需求,遇见不适情况,自觉分割    
 
 ```javascript
 //基础Model
@@ -232,6 +231,11 @@ class BaseComponent extends Component{
   }
 }
 ```
+
+## VM包含Model
+某些最小单元的组件,如Input,可使用双向绑定的方式进行关联(value),此时不再依赖click/change事件,vm与最终上传的model之间的关联依赖PM,比如通过添加按钮将vm的属性加入model中,故也可以使用组合的方式进行关联    
+
+
 
 ## 模块结构
 以维护/展示的主业务作区分,其他模块做辅助(基础参照),组件属于模块私有,容器为共有

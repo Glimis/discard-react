@@ -31,10 +31,11 @@ app.all('*', function(req, res, next) {
 //初始化模型,丢到全局M中,不用再引用
 
 global.M={};
-//模型注入
+// 模型注入
 models(app);
 //路由注入
 controllers(app)
+
 
 
 // 监听端口

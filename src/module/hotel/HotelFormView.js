@@ -1,53 +1,45 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-// import {Button } from 'Common'
 import { FormGroup,FormControl,DropdownButton,InputGroup,MenuItem ,Button,Form,Col  } from 'react-bootstrap';
-import Order from './model';
-
+// import Hotel from 'Model/Hotel'
+import VM from './HotelFormViewVM'
 
 @observer
-export default class OrderForm extends Component{
+export default class HotelFormView extends Component{
   constructor(props){
-    const order = new Order();
     super(props);
-    var id=props.params.id;
-    if(id){
-      order.load({
-        id:id
-      })
-    }
-    this.state ={
-      order:order,
-      addTypeValue:''
-    };
+    var id=props.params.id
+    this.vm=new VM({id:id});
   }  
   //修改属性
-  changeOrder(name,e){
-     this.state.order[name]=e.target.value;
+  changeHotel(name,e){
+    this.vm.hotel.set(name,e.target.value) 
   }
   //修改属性
-  changeState(e){
+  changeState(value){
      this.setState({
-        addTypeValue:e.target.value
+        addTypeValue:value
      })
   }  
+  changeStateHandle(e){
+    this.vm.value=e.target.value
+  }
   //保存
-  save(){
-    var self=this;
-    this.state.order.save()
-      .then(function(){
-            self.props.router.push('/hotel/list')
-        });
+  async save(){
+    await this.vm.saveHotel(); 
+    this.props.router.push('/hotel/list')
   }
   //添加类型
-  addType(){
-    if(this.state.addTypeValue){
-      this.state.order.form.push(this.state.addTypeValue);
-    }
-    this.setState({
-      addTypeValue:""
-    })
-  }
+  // addType(){
+  //   if(this.state.addTypeValue){
+  //     if(this.hotel.get('form')){
+  //       this.hotel.get('form').push(this.state.addTypeValue)
+  //     }else{
+  //       this.hotel.set('form',[this.state.addTypeValue])
+  //     }
+  //   }
+  //   this.changeState('');
+  // }
   render(){
     var self=this;
     return (
@@ -58,7 +50,7 @@ export default class OrderForm extends Component{
                   名称
                 </Col>
                 <Col sm={10}>
-                  <FormControl type="text" value={this.state.order.name} onChange={this.changeOrder.bind(self,'name')} />
+                  <FormControl type="text" value={this.vm.hotel.get('name')} onChange={this.changeHotel.bind(self,'name')} />
                 </Col>
               </FormGroup>
               <FormGroup >
@@ -66,22 +58,22 @@ export default class OrderForm extends Component{
                   地址
                 </Col>
                 <Col sm={10}>
-                  <FormControl type="text" value={this.state.order.address}  onChange={this.changeOrder.bind(self,'address')}/>
+                  <FormControl type="text" value={this.vm.hotel.get('address')}  onChange={this.changeHotel.bind(self,'address')}/>
                 </Col>
               </FormGroup>
               <FormGroup >
               {
-                this.state.order.form.map(function (obj) {
-                  return (<label  className="col-sm-2 control-label">{obj}</label>)
-                })
+                  this.vm.hotel.get('form')&&this.vm.hotel.get('form').map(function (obj) {
+                    return (<label  className="col-sm-2 control-label">{obj}</label>)
+                  })
               }
               </FormGroup>
               <FormGroup>
                 <Col sm={2}>
                   <InputGroup>
-                    <FormControl type="text" value={this.state.addTypeValue} onChange={this.changeState.bind(self)} />
+                    <FormControl type="text" value={this.vm.value}  onChange={this.changeStateHandle.bind(self)}/>
                     <InputGroup.Button>
-                      <Button onClick={self.addType.bind(self)}>添加类别</Button>
+                      <Button onClick={self.vm.addType.bind(self.vm)}>添加类别</Button>
                     </InputGroup.Button>                  
                   </InputGroup>
                  </Col> 

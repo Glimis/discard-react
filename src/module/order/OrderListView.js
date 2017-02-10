@@ -1,32 +1,22 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-// import {Button } from 'Common'
 import {Table ,Button,Form,Col,Pagination  } from 'react-bootstrap';
-import Store from './store';
 import {  Link } from 'react-router'
+import Orders from 'Store/Order'
 
 @observer
 export default class OrderForm extends Component{
   constructor(props){
-    const list = new Store();
-    
     super(props);
-    this.state ={
-      store:list
-    };
-    
-    this.handleSelect(1);  
-  }  
-
+    var order=this.order=new Orders();
+    this.handleSelect(1)
+  }
   handleSelect(page){
-
-    this.state.store.load({
-      cb:{
+    this.order.load({
         sort:{date:-1},
         page:page
-      }
     });
-  }
+  }  
   render(){
     var self=this;
     return (
@@ -38,11 +28,12 @@ export default class OrderForm extends Component{
                   <th>#</th>
                   <th>名称</th>
                   <th>时间</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
                 {
-                  this.state.store.list.map(function (obj,index) {
+                  this.order.getList().map(function (obj,index) {
                     var date=new Date(obj.date);
                     return (
                             <tr>
@@ -62,10 +53,11 @@ export default class OrderForm extends Component{
                     last
                     ellipsis
                     boundaryLinks
-                    items={this.state.store.pages}
+                    items={this.order.getPages()}
                     maxButtons={5}
-                    activePage={this.state.store.page}
-                    onSelect={this.handleSelect.bind(this)}/>
+                    activePage={this.order.getPage()}
+                    onSelect={this.handleSelect.bind(this)}
+                    />
           </div>)
   }
 }
